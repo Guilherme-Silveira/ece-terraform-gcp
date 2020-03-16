@@ -122,7 +122,7 @@ resource "google_compute_instance" "ece-03" {
       type        = "ssh"
       user        = "silveira"
       host        = "10.150.0.10"
-      private_key = "${file(/tmp/silveira)}"
+      private_key = "${file("/tmp/silveira")}"
     }
   }
 
@@ -132,7 +132,7 @@ resource "google_compute_instance" "ece-03" {
       type        = "ssh"
       user        = "silveira"
       host        = "10.150.0.11"
-      private_key = "${file(/tmp/silveira)}"
+      private_key = "${file("/tmp/silveira")}"
     }
   }
 
@@ -142,7 +142,7 @@ resource "google_compute_instance" "ece-03" {
       type        = "ssh"
       user        = "silveira"
       host        = "10.150.0.12"
-      private_key = "${file(/tmp/silveira)}"
+      private_key = "${file("/tmp/silveira")}"
     }
   }
 
