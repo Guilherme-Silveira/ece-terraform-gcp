@@ -1,6 +1,6 @@
 // Configure the Google Cloud provider
 provider "google" {
- credentials = file("credentials.json")
+ credentials = file("/tmp/credentials.json")
  project     = "inlaid-lane-270316"
  region      = "us-east4"
 }
@@ -53,7 +53,7 @@ resource "google_compute_instance" "ece-01" {
    }
  }
  metadata = {
-   ssh-keys = "silveira:${file("~/.ssh/silveira.pub")}"
+   ssh-keys = "silveira:${file("/tmp/silveira.pub")}"
  }
 }
 
@@ -83,7 +83,7 @@ resource "google_compute_instance" "ece-02" {
    }
  }
  metadata = {
-   ssh-keys = "silveira:${file("~/.ssh/silveira.pub")}"
+   ssh-keys = "silveira:${file("/tmp/silveira.pub")}"
  }
 }
 
@@ -113,7 +113,7 @@ resource "google_compute_instance" "ece-03" {
    }
  }
  metadata = {
-   ssh-keys = "silveira:${file("~/.ssh/silveira.pub")}"
+   ssh-keys = "silveira:${file("/tmp/silveira.pub")}"
  }
 
  provisioner "local-exec" {
