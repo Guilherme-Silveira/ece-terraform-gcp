@@ -40,20 +40,6 @@ resource "google_compute_instance" "ansible" {
         }
  }
 
- provisioner "remote-exec" {
-    connection {
-            type = "ssh"
-            user = "silveira"
-            host = google_compute_instance.ansible.network_interface.0.access_config.0.nat_ip
-    }
-    inline = [
-      "sudo yum update -y",
-      "sudo yum install -y git ansible unzip wget",
-      "git clone https://github.com/Guilherme-Silveira/ece-ansible.git",
-      "git clone https://github.com/Guilherme-Silveira/ece-terraform-gcp.git",
-      "wget https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip -O /home/silveira/terraform.zip",
-      "sudo unzip -d /usr/local/bin /home/silveira/terraform.zip",
-    ]
- }
+ metadata_startup_script = "sudo yum update -y; sudo yum install -y git ansible unzip wget; cd /home/silveira; git clone https://github.com/Guilherme-Silveira/ece-ansible.git; git clone https://github.com/Guilherme-Silveira/ece-terraform-gcp.git; wget https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip -O /home/silveira/terraform.zip; sudo unzip -d /usr/local/bin /home/silveira/terraform.zip; sudo chown -R silveira:silveira /home/silveira"
 }
 
