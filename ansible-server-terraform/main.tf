@@ -1,6 +1,6 @@
 // Configure the Google Cloud provider
 provider "google" {
- credentials = file("credentials.json")
+ credentials = file("../credentials.json")
  project     = "inlaid-lane-270316"
  region      = "us-central1"
 }
@@ -61,6 +61,6 @@ provisioner "file" {
  }
 
 
- metadata_startup_script = "sudo yum update -y; sudo yum install -y git ansible unzip wget; cd /home/silveira; git clone https://github.com/Guilherme-Silveira/ece-ansible.git; git clone https://github.com/Guilherme-Silveira/ece-terraform-gcp.git; wget https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip -O /home/silveira/terraform.zip; sudo unzip -d /usr/local/bin /home/silveira/terraform.zip; sudo chown -R silveira:silveira /home/silveira"
+ metadata_startup_script = "sudo yum update -y; sudo yum install -y git ansible unzip wget; cd /home/silveira; git clone https://github.com/Guilherme-Silveira/ece-ansible.git; git clone https://github.com/Guilherme-Silveira/ece-terraform-gcp.git; wget https://releases.hashicorp.com/terraform/0.12.23/terraform_0.12.23_linux_amd64.zip -O /home/silveira/terraform.zip; sudo unzip -d /usr/local/bin /home/silveira/terraform.zip; sudo chown -R silveira:silveira /home/silveira; sudo chmod 400 /tmp/silveira"
 }
 

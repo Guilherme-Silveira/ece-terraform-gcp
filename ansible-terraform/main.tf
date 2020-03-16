@@ -7,14 +7,14 @@ provider "google" {
 
 resource "google_compute_instance" "ansible" {
  name         = "ansible"
- machine_type = "n1-standard-1"
+ machine_type = "n1-standard-4"
  zone         = "us-central1-a"
  hostname     = "ansible.srv"
 
  boot_disk {
    initialize_params {
      image = "centos-cloud/centos-7"
-     size  = "30"
+     size  = "50"
    }
  }
 
@@ -51,6 +51,7 @@ resource "google_compute_instance" "ansible" {
       "sudo yum install -y git ansible",
       "git clone https://github.com/Guilherme-Silveira/ece-ansible.git",
       "cd /home/silveira/ece-ansible",
+      "sudo chmod 400 /tmp/silveira",
       "ansible-playbook -i hosts playbooks/ece.yml",
     ]
  }

@@ -117,7 +117,7 @@ resource "google_compute_instance" "ece-03" {
  }
 
  provisioner "local-exec" {
-   command = "ansible-playbook -i /home/silveira/ece-ansible/hosts /home/silveira/ece-ansible/playbooks/ece.yml"
+   command = "cd /home/silveira/ece-ansible; ansible-playbook -i hosts playbooks/ece.yml"
  }
 }
 
