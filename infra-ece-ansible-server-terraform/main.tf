@@ -115,6 +115,7 @@ resource "google_compute_instance" "ece-03" {
  metadata = {
    ssh-keys = "silveira:${file("/tmp/silveira.pub")}"
  }
+}
 
 resource "google_compute_target_pool" "ece-backend" {
   name = "ece-backend"
