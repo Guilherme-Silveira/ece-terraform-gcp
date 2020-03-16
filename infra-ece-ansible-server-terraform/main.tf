@@ -116,6 +116,36 @@ resource "google_compute_instance" "ece-03" {
    ssh-keys = "silveira:${file("/tmp/silveira.pub")}"
  }
 
+   provisioner "remote-exec" {
+
+    connection {
+      type        = "ssh"
+      user        = "silveira"
+      host        = "10.150.0.10"
+      private_key = "${file(/tmp/silveira)}"
+    }
+  }
+
+   provisioner "remote-exec" {
+
+    connection {
+      type        = "ssh"
+      user        = "silveira"
+      host        = "10.150.0.11"
+      private_key = "${file(/tmp/silveira)}"
+    }
+  }
+
+  provisioner "remote-exec" {
+
+    connection {
+      type        = "ssh"
+      user        = "silveira"
+      host        = "10.150.0.12"
+      private_key = "${file(/tmp/silveira)}"
+    }
+  }
+
  provisioner "local-exec" {
    command = "cd /home/silveira/ece-ansible; ansible-playbook -i hosts playbooks/ece.yml"
  }
