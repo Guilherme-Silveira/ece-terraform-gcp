@@ -1,5 +1,5 @@
 cd ./infra-ece-terraform
-echo yes | terraform apply
+terraform apply -auto-approve
 cd ../ansible-terraform
-echo yes | terraform apply
-echo yes | terraform destroy
+terraform apply -auto-approve
+terraform destroy -auto-approve
