@@ -1,15 +1,27 @@
+variable "zone" {
+ type = string
+}
+
+variable "hostname" {
+ type = string
+}
+
+variable "ip" {
+ type = string
+}
+
 // Configure the Google Cloud provider
 provider "google" {
  credentials = file("../credentials.json")
  project     = "inlaid-lane-270316"
- region      = "us-central1"
+ region      = var.zone
 }
 
 resource "google_compute_instance" "ansible" {
- name         = "ansible"
+ name         = var.hostname
  machine_type = "n1-standard-1"
- zone         = "us-central1-a"
- hostname     = "ansible.srv"
+ zone         = "${var.zone}-a"
+ hostname     = "${var.hostname}.srv"
 
  boot_disk {
    initialize_params {
@@ -20,7 +32,7 @@ resource "google_compute_instance" "ansible" {
 
  network_interface {
    network    = "default"
-   network_ip = "10.128.0.10"
+   network_ip = var.ip
    access_config {
      // Include this section to give the VM an external ip address
    }

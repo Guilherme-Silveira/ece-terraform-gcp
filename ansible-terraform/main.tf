@@ -21,7 +21,7 @@ provider "google" {
 resource "google_compute_instance" "ansible" {
  name         = var.hostname
  machine_type = "n1-standard-4"
- zone         = "us-central1-a"
+ zone         = "${var.zone}-a"
  hostname     = "${var.hostname}.srv"
 
  boot_disk {

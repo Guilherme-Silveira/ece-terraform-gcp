@@ -1,37 +1,68 @@
-// Configure the Google Cloud provider
+variable "disk1" {
+ type = string
+}
+
+variable "disk2" {
+ type = string
+}
+
+variable "disk3" {
+ type = string
+}
+
+variable "instance1" {
+ type = string
+}
+
+variable "instance2" {
+ type = string
+}
+
+variable "instance3" {
+ type = string
+}
+
+variable "zone" {
+ type = string
+}
+
+variable "disk_size" {
+ type = string
+}
+
 provider "google" {
  credentials = file("../../credentials.json")
  project     = "inlaid-lane-270316"
- region      = "us-east4"
+ region      = var.zone
 }
 
 resource "google_compute_disk" "ece-01" {
- name = "ece-01-data"
+ name = var.disk1
  type = "pd-ssd"
- zone = "us-east4-a"
- size = "50"
+ zone = "${var.zone}-a"
+ size = var.disk_size
 }
 
 resource "google_compute_disk" "ece-02" {
- name = "ece-02-data"
+ name = var.disk2
  type = "pd-ssd"
- zone = "us-east4-b"
- size = "50"
+ zone = "${var.zone}-b"
+ size = var.disk_size
 }
 
 resource "google_compute_disk" "ece-03" {
- name = "ece-03-data"
+ name = var.disk3
  type = "pd-ssd"
- zone = "us-east4-c"
- size = "50"
+ zone = "${var.zone}-c"
+ size = var.disk_size
 }
 
 // A single Google Cloud Engine instance
 resource "google_compute_instance" "ece-01" {
- name         = "ece-01"
+ name         = var.instance1
  machine_type = "n1-standard-8"
- zone         = "us-east4-a"
- hostname     = "ece-01.srv"
+ zone         = "${var.zone}-a"
+ hostname     = "${var.instance1}.srv"
 
  boot_disk {
    initialize_params {
@@ -41,7 +72,7 @@ resource "google_compute_instance" "ece-01" {
  }
 
  attached_disk {
-   source      = "ece-01-data"
+   source      = google_compute_disk.ece-01.name
    device_name = "sdb"
  }
 
@@ -58,10 +89,10 @@ resource "google_compute_instance" "ece-01" {
 }
 
 resource "google_compute_instance" "ece-02" {
- name         = "ece-02"
+ name         = var.instance2
  machine_type = "n1-standard-8"
- zone         = "us-east4-b"
- hostname     = "ece-02.srv"
+ zone         = "${var.zone}-b"
+ hostname     = "${var.instance2}.srv"
 
  boot_disk {
    initialize_params {
@@ -71,7 +102,7 @@ resource "google_compute_instance" "ece-02" {
  }
 
  attached_disk {
-   source      = "ece-02-data"
+   source      = google_compute_disk.ece-02.name
    device_name = "sdb"
  }
 
@@ -88,10 +119,10 @@ resource "google_compute_instance" "ece-02" {
 }
 
 resource "google_compute_instance" "ece-03" {
- name         = "ece-03"
+ name         = var.instance3
  machine_type = "n1-standard-8"
- zone         = "us-east4-c"
- hostname     = "ece-03.srv"
+ zone         = "${var.zone}-c"
+ hostname     = "${var.instance3}.srv"
 
  boot_disk {
    initialize_params {
@@ -101,7 +132,7 @@ resource "google_compute_instance" "ece-03" {
  }
 
  attached_disk {
-   source      = "ece-03-data"
+   source      = google_compute_disk.ece-03.name
    device_name = "sdb"
  }
 
@@ -125,12 +156,12 @@ resource "google_compute_target_pool" "ece-backend" {
     google_compute_instance.ece-02.self_link,
     google_compute_instance.ece-03.self_link,
   ]
-  region = "us-east4"
+  region = var.zone
 }
 
 resource "google_compute_forwarding_rule" "lb" {
  name                  = "lb-ece"
- region                = "us-east4"
+ region                = var.zone
  load_balancing_scheme = "EXTERNAL"
  ip_protocol           = "TCP"
  port_range            = "9243-12443"
@@ -148,7 +179,7 @@ resource "null_resource" "hosts" {
    connection {
      type = "ssh"
      user = "silveira"
-     host = "35.238.3.205"
+     host = "34.66.54.32"
    }
    inline = [
      "cd /home/silveira/ece-ansible",
