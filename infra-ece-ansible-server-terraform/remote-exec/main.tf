@@ -30,8 +30,12 @@ variable "disk_size" {
  type = string
 }
 
+variable "bastion_ip" {
+  type = string
+}
+
 provider "google" {
- credentials = file("../../credentials.json")
+ credentials = file("/home/silveira/Documents/projetos/credentials.json")
  project     = "inlaid-lane-270316"
  region      = var.zone
 }
@@ -179,7 +183,7 @@ resource "null_resource" "hosts" {
    connection {
      type = "ssh"
      user = "silveira"
-     host = "34.66.54.32"
+     host = var.bastion_ip
    }
    inline = [
      "cd /home/silveira/ece-ansible",
