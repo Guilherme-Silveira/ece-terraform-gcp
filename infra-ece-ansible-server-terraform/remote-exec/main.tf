@@ -34,8 +34,16 @@ variable "bastion_ip" {
   type = string
 }
 
+variable "private_key" {
+ type = string
+}
+
+variable "ssh_key" {
+ type = string
+}
+
 provider "google" {
- credentials = file("/home/silveira/Documents/projetos/credentials.json")
+ credentials = file("../../../credentials.json")
  project     = "inlaid-lane-270316"
  region      = var.zone
 }
@@ -88,7 +96,7 @@ resource "google_compute_instance" "ece-01" {
    }
  }
  metadata = {
-   ssh-keys = "silveira:${file("~/.ssh/silveira.pub")}"
+   ssh-keys = "silveira:${file(var.ssh_key)}"
  }
 }
 
@@ -118,7 +126,7 @@ resource "google_compute_instance" "ece-02" {
    }
  }
  metadata = {
-   ssh-keys = "silveira:${file("~/.ssh/silveira.pub")}"
+   ssh-keys = "silveira:${file(var.ssh_key)}"
  }
 }
 
@@ -148,7 +156,7 @@ resource "google_compute_instance" "ece-03" {
    }
  }
  metadata = {
-   ssh-keys = "silveira:${file("~/.ssh/silveira.pub")}"
+   ssh-keys = "silveira:${file(var.ssh_key)}"
  }
 }
 
@@ -184,6 +192,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = var.bastion_ip
+     private_key = file(var.private_key)
    }
    inline = [
      "cd /home/silveira/ece-ansible",
