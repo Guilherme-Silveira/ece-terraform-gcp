@@ -1,0 +1,23 @@
+---
+- name: Make sure /mnt/data exists
+  file:
+    path: /mnt/data
+    state: directory
+
+- name: partition new disk
+  shell: /bin/echo -e "n\np\n1\n\n\nw" | sudo fdisk /dev/{{ device_name }}
+
+- name: Create xfs filesystem on /dev/{{ device_name }}1
+  filesystem:
+    fstype: xfs
+    dev: /dev/{{ device_name }}1
+
+- name: Add entries to fstab
+  lineinfile:
+    path: /etc/fstab
+    line: "{{ item }}"
+  with_items:
+    - '/dev/{{ device_name }}1 /mnt/data  xfs   defaults,pquota,prjquota,x-systemd.automount  0 0'
+
+- name: Mount /dev/{{ device_name }}1
+  command: mount /dev/{{ device_name }}1
