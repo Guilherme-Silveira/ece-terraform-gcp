@@ -145,3 +145,7 @@ variable "target_pool_name" {
 variable "lb_name" {
  type = string
 }
+
+variable "ansible_home" {
+ type = string
+}
