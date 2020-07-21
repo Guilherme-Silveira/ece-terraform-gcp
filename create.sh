@@ -1,1 +1,1 @@
-terraform apply -var-file="ece.tfvars" -auto-approve
+cd iac && terraform apply -var-file="ece.tfvars" -auto-approve
