@@ -25,7 +25,7 @@ resource "null_resource" "hosts" {
      "availability_zone=${var.az2}",
      "[tertiary]",
      "${var.ip3}",
-     "[tertiary:vars]"
+     "[tertiary:vars]",
      "availability_zone=${var.az3}",
      "[gcp:children]",
      "primary",
@@ -35,7 +35,7 @@ resource "null_resource" "hosts" {
      "ansible_ssh_private_key_file=${var.ansible_private_key}",
      "ansible_user=${var.user}",
      "ansible_become=yes",
-     "device_name=${var.device_name}"
+     "device_name=${var.device_name}",
      "EOF",
      "ansible-playbook -i hosts ece.yml",
    ]
