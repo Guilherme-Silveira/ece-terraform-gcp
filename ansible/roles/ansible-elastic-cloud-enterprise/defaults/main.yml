@@ -18,10 +18,10 @@ system_limits_file: "/etc/security/limits.d/70-cloudenterprise.conf"
 # Memory settings
 memory:
   runner: 1G
-  allocator: 2G
+  allocator: 4G
   proxy: 1G
-  zookeeper: 2G
-  director: 1G
+  zookeeper: 4G
+  director: 2G
   constructor: 2G
   adminconsole: 2G
 
