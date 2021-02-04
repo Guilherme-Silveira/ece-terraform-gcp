@@ -20,11 +20,11 @@ system_limits_file: "/etc/security/limits.d/70-cloudenterprise.conf"
 memory:
   runner: 1G
   allocator: 4G
-  proxy: 4G
+  proxy: 1G
   zookeeper: 4G
   director: 1G
-  constructor: 4G
-  adminconsole: 4G
+  constructor: 2G
+  adminconsole: 2G
 
 # Elastic Cloud Enterprise - Support Diagnostics Settings
 ece_supportdiagnostics_url: "https://github.com/elastic/ece-support-diagnostics/archive/v1.1.tar.gz"

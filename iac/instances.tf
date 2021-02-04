@@ -21,7 +21,7 @@ resource "google_compute_disk" "ece-03" {
 
 resource "google_compute_instance" "ece-01" {
  name         = var.instance1
- machine_type = var.machine_type
+ machine_type = var.machine_type1
  zone         = var.zone1
  hostname     = var.hostname1
 
@@ -49,7 +49,7 @@ resource "google_compute_instance" "ece-01" {
 
 resource "google_compute_instance" "ece-02" {
  name         = var.instance2
- machine_type = var.machine_type
+ machine_type = var.machine_type2
  zone         = var.zone2
  hostname     = var.hostname2
 
@@ -77,7 +77,7 @@ resource "google_compute_instance" "ece-02" {
 
 resource "google_compute_instance" "ece-03" {
  name         = var.instance3
- machine_type = var.machine_type
+ machine_type = var.machine_type3
  zone         = var.zone3
  hostname     = var.hostname3
 

@@ -10,7 +10,15 @@ variable "image" {
  type = string
 }
 
-variable "machine_type" {
+variable "machine_type1" {
+ type = string
+}
+
+variable "machine_type2" {
+ type = string
+}
+
+variable "machine_type3" {
  type = string
 }
 
