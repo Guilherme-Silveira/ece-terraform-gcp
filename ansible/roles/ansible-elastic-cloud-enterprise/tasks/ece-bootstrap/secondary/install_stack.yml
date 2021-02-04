@@ -6,13 +6,14 @@
 
 - name: Get the roles token
   uri:
-    url: "http://{{primary_hostname}}:12400/api/v1/platform/configuration/security/enrollment-tokens"
+    url: "https://{{primary_hostname}}:12443/api/v1/platform/configuration/security/enrollment-tokens"
     method: POST
     user: admin
     password: "{{ adminconsole_root_password }}"
     force_basic_auth: yes
     return_content: yes
     validate_certs: no
+    timeout: 180
     headers:
       Content-Type: "application/json"
     body_format: json
